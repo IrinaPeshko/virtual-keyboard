@@ -1,0 +1,129 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  background-color: #c2f3ff;
+  box-sizing: border-box;
+}
+
+.container {
+  margin: 0 auto;
+}
+
+.content {
+  width: 70%;
+  margin: 50px auto;
+  border: 10px solid #00607b;
+  border-radius: 30px;
+  background-color: #b1f1ff;
+  box-shadow: 10px 10px 10px 5px rgb(53, 83, 107, 0.6);
+
+}
+.header {
+  width: 100%;
+  text-align: center;
+  margin: 20px auto;
+  background-color: #b1f1ff;
+
+}
+.textarea {
+  display: block;
+  width: 80%;
+  height: 30vh;
+  margin: 20px auto;
+  resize: none;
+  border: 5px solid #003762
+}
+
+.keyboard {
+  width: 95%;
+  height: 20vw;
+  margin: 10px auto;
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  grid-gap: 1vw;
+}
+/* .keyboard__row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  gap: 5px;
+  margin: 5px auto;
+} */
+.keyboard__button {
+  display: block;
+  height: 100%;
+  border: 2px solid #003762;
+  color:#002c4e;
+  font-weight: 600;
+  border-radius: 5px;
+  box-shadow: 5px 3px 3px #a3c1d8;
+  background-color: rgba(164,237,255,1);
+  cursor: pointer;
+  transition: color 0.3s, background-color 0.5s;
+}
+
+.keyboard__button:active {
+  color:#d0f6ff;
+  background-color: #093b62;
+  transition: color 0.3s, background-color 0.5s;
+}
+
+.keyboard__button_function {
+  color:#d0f6ff;
+  background-color: #093b62;
+  transition: color 0.3s, background-color 0.5s;
+}
+
+.keyboard__button_function:active {
+  background-color: rgba(164,237,255,1);
+  color:#002c4e;
+  transition: color 0.3s, background-color 0.5s;
+}
+
+.keyboard__backspace {
+  grid-column-start: 14;
+  grid-column-end: 16;
+}
+
+.keyboard__capslock {
+  grid-row-start: 3;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.keyboard__capslock_on {
+  border: 3px solid #006200;
+  background-color: #4f9864;
+}
+
+.keyboard__enter {
+  grid-row-start: 3;
+  grid-column-start: 14;
+  grid-column-end: 16
+}
+
+.keyboard__shift_left {
+  grid-row-start: 4;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.keyboard__shift_right {
+  grid-row-start: 4;
+  grid-column-start: 14;
+  grid-column-end: 16;
+}
+
+.keyboard__space {
+  grid-row-start: 5;
+  grid-column-start: 4;
+  grid-column-end: 11;
+}
+
+.prescription {
+  text-align: center;
+  margin: 10px auto;
+  color:#002c4e;
+}
