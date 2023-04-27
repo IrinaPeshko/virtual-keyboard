@@ -16,7 +16,7 @@
   border: 10px solid #00607b;
   border-radius: 30px;
   background-color: #b1f1ff;
-  box-shadow: 10px 10px 10px 5px rgb(53, 83, 107, 0.6);
+  box-shadow: 10px 10px 10px 5px #35536b99;
 
 }
 .header {
@@ -59,7 +59,7 @@
   font-weight: 600;
   border-radius: 5px;
   box-shadow: 5px 3px 3px #a3c1d8;
-  background-color: rgba(164,237,255,1);
+  background-color: #a4edff;
   cursor: pointer;
   transition: color 0.3s, background-color 0.5s;
 }
@@ -72,28 +72,28 @@
 
 .keyboard__button_function {
   color:#d0f6ff;
-  background-color: #093b62;
+  background-color: #2498b1;
   transition: color 0.3s, background-color 0.5s;
 }
 
-.keyboard__button_function:active {
+/* .keyboard__button_function:active {
   background-color: rgba(164,237,255,1);
   color:#002c4e;
   transition: color 0.3s, background-color 0.5s;
-}
+} */
 
 .keyboard__backspace {
   grid-column-start: 14;
   grid-column-end: 16;
 }
 
-.keyboard__capslock {
+.keyboard__caps {
   grid-row-start: 3;
   grid-column-start: 1;
   grid-column-end: 3;
 }
 
-.keyboard__capslock_on {
+.keyboard__caps_on {
   border: 3px solid #006200;
   background-color: #4f9864;
 }
@@ -104,13 +104,13 @@
   grid-column-end: 16
 }
 
-.keyboard__shift_left {
+.keyboard__shiftLeft {
   grid-row-start: 4;
   grid-column-start: 1;
   grid-column-end: 3;
 }
 
-.keyboard__shift_right {
+.keyboard__shiftRight {
   grid-row-start: 4;
   grid-column-start: 14;
   grid-column-end: 16;
