@@ -10,6 +10,7 @@ header.className = "header";
 header.innerText = "Virtual Keyboard";
 const textArea = document.createElement("textarea");
 textArea.className = "textarea";
+textArea.setAttribute("autofocus", "autofocus")
 const keyboardWrapper = document.createElement("div");
 keyboardWrapper.className = "keyboard";
 const button = document.createElement("button");
@@ -29,23 +30,44 @@ function createKeyboard(){
   content.append(header)
   content.append(textArea)
   content.append(keyboardWrapper)
-}
 
-function createButtons(){
-  const buttonsArray = Object.keys(buttons);
-  for(let key in buttons){
+  // Create keys
+  for (let key in buttons) {
     const button = document.createElement("button");
     button.className = "keyboard__button";
     button.innerText = buttons[key].en.lower;
-    keyboardWrapper.append(button)
-    if(functionButtons.includes(key))
-    {
+    button.setAttribute("data", `${button.innerText.charCodeAt()}`)
+    keyboardWrapper.append(button);
+
+    if (functionButtons.includes(key)) {
       button.classList.add("keyboard__button_function");
-      button.classList.add(`keyboard__${key}`); 
+      button.classList.add(`keyboard__${key}`);
     }
   }
-  console.log(buttonsArray);
 }
 
-createButtons()
 createKeyboard()
+// добавляеем событие при нажатии на клавиатуру
+document.addEventListener ("keydown", (event) => {
+  const keyCode = event.key.charCodeAt();
+  document.querySelector(".keyboard__button[data='"+keyCode+"']" ).classList.add("keyboard__button_active")
+  console.log(keyCode); 
+});
+
+document.addEventListener ("keyup", (event) => {
+  const keyCode = event.key.charCodeAt();
+  document.querySelector(".keyboard__button[data='"+keyCode+"']" ).classList.remove("keyboard__button_active")
+});
+// добавляем класс при нажатии мышкой
+document.querySelectorAll(".keyboard__button").forEach(function(element){
+  element.addEventListener("click", ()=>{
+    element.classList.add("keyboard__button_active")
+    setTimeout(()=>element.classList.remove("keyboard__button_active"), 300)
+    console.log(textArea.value)
+    textArea.value+=element.innerText
+  })
+})
+  
+
+
+

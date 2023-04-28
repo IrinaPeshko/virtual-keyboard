@@ -32,8 +32,14 @@
   height: 30vh;
   margin: 20px auto;
   resize: none;
-  border: 5px solid #003762
+  border: 5px solid #003762;
+  font-size: 17px;
+  padding: 20px;
 }
+
+/* .textarea:focus{
+  box-shadow:4px 4px 10px 5px #35536b99, -4px -5px 10px 5px #35536b99;
+} */
 
 .keyboard {
   width: 95%;
@@ -64,15 +70,15 @@
   transition: color 0.3s, background-color 0.5s;
 }
 
-.keyboard__button:active {
-  color:#d0f6ff;
-  background-color: #093b62;
-  transition: color 0.3s, background-color 0.5s;
-}
-
 .keyboard__button_function {
   color:#d0f6ff;
   background-color: #2498b1;
+  transition: color 0.3s, background-color 0.5s;
+}
+
+.keyboard__button_active {
+  color:#d0f6ff;
+  background-color: #093b62;
   transition: color 0.3s, background-color 0.5s;
 }
 
