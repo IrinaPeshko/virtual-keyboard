@@ -22,7 +22,14 @@ const pToLanguage = document.createElement("p");
 pToLanguage.className = "prescription";
 pToLanguage.innerText = "Для переключения языка комбинация: левые Ctr + Alt";
 
-function createKeyboard(){
+class Keyboard {
+  constructor(){
+    this.capsLock = false;
+    this.shif = false;
+    this.lang = (localStorage.lang) ? localStorage.lang : "en";
+  }
+
+  createKeyboard(){
   body.prepend(container)
   container.append(content)
   container.append(pToWindows)
@@ -31,22 +38,49 @@ function createKeyboard(){
   content.append(textArea)
   content.append(keyboardWrapper)
 
-  // Create keys
-  for (let key in buttons) {
-    const button = document.createElement("button");
-    button.className = "keyboard__button";
-    button.innerText = buttons[key].en.lower;
-    button.setAttribute("data", `${button.innerText.charCodeAt()}`)
-    keyboardWrapper.append(button);
+    // Create keys
+    for (let key in buttons) {
+      const button = document.createElement("button");
+      button.className = "keyboard__button";
+      button.innerText = buttons[key].en.lower;
+      button.setAttribute("data", `${button.innerText.charCodeAt()}`)
+      keyboardWrapper.append(button);
 
-    if (functionButtons.includes(key)) {
-      button.classList.add("keyboard__button_function");
-      button.classList.add(`keyboard__${key}`);
+      if (functionButtons.includes(key)) {
+        button.classList.add("keyboard__button_function");
+        button.classList.add(`keyboard__${key}`);
+      }
     }
   }
 }
 
-createKeyboard()
+const virtualKeyboard = new Keyboard()
+virtualKeyboard.createKeyboard()
+// function createKeyboard(){
+//   body.prepend(container)
+//   container.append(content)
+//   container.append(pToWindows)
+//   container.append(pToLanguage);
+//   content.append(header)
+//   content.append(textArea)
+//   content.append(keyboardWrapper)
+
+//   // Create keys
+//   for (let key in buttons) {
+//     const button = document.createElement("button");
+//     button.className = "keyboard__button";
+//     button.innerText = buttons[key].en.lower;
+//     button.setAttribute("data", `${button.innerText.charCodeAt()}`)
+//     keyboardWrapper.append(button);
+
+//     if (functionButtons.includes(key)) {
+//       button.classList.add("keyboard__button_function");
+//       button.classList.add(`keyboard__${key}`);
+//     }
+//   }
+// }
+
+// createKeyboard()
 
 const rightShift = document.querySelector(".keyboard__shiftRight");
 const rightAlt = document.querySelector(".keyboard__altRight");
@@ -54,6 +88,7 @@ const controlRight = document.querySelector(".keyboard__controlRight");
 const controlLeft = document.querySelector(".keyboard__controlLeft")
 
 // добавляеем событие при нажатии на клавиатуру
+// KeyDown
 document.addEventListener ("keydown", (event) => {
   const keyCode = event.key.charCodeAt();
   if(keyCode === 83 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
@@ -68,7 +103,7 @@ document.addEventListener ("keydown", (event) => {
     document.querySelector(".keyboard__button[data='"+keyCode+"']" ).classList.add("keyboard__button_active")
 }
 });
-
+// KeyUp
 document.addEventListener ("keyup", (event) => {
   const keyCode = event.key.charCodeAt();
   if(keyCode === 83 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
@@ -85,9 +120,10 @@ document.addEventListener ("keyup", (event) => {
   
 });
 
-
 // добавляем класс при нажатии мышкой
 document.querySelectorAll(".keyboard__button").forEach(function(element){
+// debugger
+
   element.addEventListener("click", ()=>{
     element.classList.add("keyboard__button_active")
     setTimeout(()=>element.classList.remove("keyboard__button_active"), 300)
@@ -95,6 +131,3 @@ document.querySelectorAll(".keyboard__button").forEach(function(element){
   })
 })
   
-
-
-
