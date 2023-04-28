@@ -47,23 +47,45 @@ function createKeyboard(){
 }
 
 createKeyboard()
+
+const rightShift = document.querySelector(".keyboard__shiftRight")
+const rightAlt = document.querySelector(".keyboard__altRight")
+const controlRight = document.querySelector(".keyboard__controlRight")
 // добавляеем событие при нажатии на клавиатуру
 document.addEventListener ("keydown", (event) => {
   const keyCode = event.key.charCodeAt();
-  document.querySelector(".keyboard__button[data='"+keyCode+"']" ).classList.add("keyboard__button_active")
-  console.log(keyCode); 
+  // debugger
+  if(keyCode === 83 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
+    rightShift.classList.add('keyboard__button_active');
+  } else if(keyCode === 67 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
+    controlRight.classList.add('keyboard__button_active');
+  } else if(keyCode === 65 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
+    rightAlt.classList.add('keyboard__button_active');
+  } else {
+    document.querySelector(".keyboard__button[data='"+keyCode+"']" ).classList.add("keyboard__button_active")
+}
 });
 
 document.addEventListener ("keyup", (event) => {
   const keyCode = event.key.charCodeAt();
-  document.querySelector(".keyboard__button[data='"+keyCode+"']" ).classList.remove("keyboard__button_active")
+  if(keyCode === 83 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
+    rightShift.classList.remove('keyboard__button_active');
+  } else if(keyCode === 67 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
+    controlRight.classList.remove('keyboard__button_active');
+  } else if(keyCode === 65 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
+    rightAlt.classList.remove('keyboard__button_active');
+  } else {
+    document.querySelector(".keyboard__button[data='"+keyCode+"']" ).classList.remove("keyboard__button_active")
+  }
+  
 });
+
+
 // добавляем класс при нажатии мышкой
 document.querySelectorAll(".keyboard__button").forEach(function(element){
   element.addEventListener("click", ()=>{
     element.classList.add("keyboard__button_active")
     setTimeout(()=>element.classList.remove("keyboard__button_active"), 300)
-    console.log(textArea.value)
     textArea.value+=element.innerText
   })
 })
