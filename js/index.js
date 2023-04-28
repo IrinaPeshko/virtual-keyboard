@@ -48,19 +48,22 @@ function createKeyboard(){
 
 createKeyboard()
 
-const rightShift = document.querySelector(".keyboard__shiftRight")
-const rightAlt = document.querySelector(".keyboard__altRight")
-const controlRight = document.querySelector(".keyboard__controlRight")
+const rightShift = document.querySelector(".keyboard__shiftRight");
+const rightAlt = document.querySelector(".keyboard__altRight");
+const controlRight = document.querySelector(".keyboard__controlRight");
+const controlLeft = document.querySelector(".keyboard__controlLeft")
+
 // добавляеем событие при нажатии на клавиатуру
 document.addEventListener ("keydown", (event) => {
   const keyCode = event.key.charCodeAt();
-  // debugger
   if(keyCode === 83 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
     rightShift.classList.add('keyboard__button_active');
   } else if(keyCode === 67 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
     controlRight.classList.add('keyboard__button_active');
   } else if(keyCode === 65 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
     rightAlt.classList.add('keyboard__button_active');
+  } else if (keyCode === 67 && event.location == KeyboardEvent.DOM_KEY_LOCATION_LEFT) { 
+    controlLeft.classList.add('keyboard__button_active');
   } else {
     document.querySelector(".keyboard__button[data='"+keyCode+"']" ).classList.add("keyboard__button_active")
 }
@@ -74,6 +77,8 @@ document.addEventListener ("keyup", (event) => {
     controlRight.classList.remove('keyboard__button_active');
   } else if(keyCode === 65 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
     rightAlt.classList.remove('keyboard__button_active');
+  } else if (keyCode === 67 && event.location == KeyboardEvent.DOM_KEY_LOCATION_LEFT) { 
+    controlLeft.classList.remove('keyboard__button_active');
   } else {
     document.querySelector(".keyboard__button[data='"+keyCode+"']" ).classList.remove("keyboard__button_active")
   }
