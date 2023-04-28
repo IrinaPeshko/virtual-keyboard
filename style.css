@@ -37,9 +37,9 @@
   padding: 20px;
 }
 
-/* .textarea:focus{
-  box-shadow:4px 4px 10px 5px #35536b99, -4px -5px 10px 5px #35536b99;
-} */
+.textarea:focus{
+  box-shadow:4px 4px 10px 5px #4ab9de99, -4px -5px 10px 5px #3a89ca99;
+}
 
 .keyboard {
   width: 95%;

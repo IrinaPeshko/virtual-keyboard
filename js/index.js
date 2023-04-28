@@ -125,9 +125,17 @@ document.querySelectorAll(".keyboard__button").forEach(function(element){
 // debugger
 
   element.addEventListener("click", ()=>{
-    element.classList.add("keyboard__button_active")
-    setTimeout(()=>element.classList.remove("keyboard__button_active"), 300)
-    textArea.value+=element.innerText
+    element.classList.add("keyboard__button_active");
+    setTimeout(()=>element.classList.remove("keyboard__button_active"), 300);
+    textArea.value+=element.innerText;
+    const keyName = element.innerText;
+    if(keyName === ""){
+      textArea.value+=" "
+    }
+
+    console.log(keyName);
+    textArea.focus();
+
   })
 })
   
