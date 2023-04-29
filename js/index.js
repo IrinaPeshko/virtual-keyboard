@@ -91,14 +91,17 @@ const controlLeft = document.querySelector(".keyboard__controlLeft")
 // KeyDown
 document.addEventListener ("keydown", (event) => {
   const keyCode = event.key.charCodeAt();
-  if(keyCode === 83 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
+  console.log(keyCode);
+  if (keyCode === 83 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
     rightShift.classList.add('keyboard__button_active');
-  } else if(keyCode === 67 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
+  } else if (keyCode === 67 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
     controlRight.classList.add('keyboard__button_active');
-  } else if(keyCode === 65 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
+  } else if (keyCode === 65 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
     rightAlt.classList.add('keyboard__button_active');
   } else if (keyCode === 67 && event.location == KeyboardEvent.DOM_KEY_LOCATION_LEFT) { 
     controlLeft.classList.add('keyboard__button_active');
+  } else if (keyCode === 84 ) {
+    textArea.value += "\t"
   } else {
     document.querySelector(".keyboard__button[data='"+keyCode+"']" ).classList.add("keyboard__button_active")
 }
@@ -106,18 +109,18 @@ document.addEventListener ("keydown", (event) => {
 // KeyUp
 document.addEventListener ("keyup", (event) => {
   const keyCode = event.key.charCodeAt();
-  if(keyCode === 83 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
+  if (keyCode === 83 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
     rightShift.classList.remove('keyboard__button_active');
-  } else if(keyCode === 67 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
+  } else if (keyCode === 67 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
     controlRight.classList.remove('keyboard__button_active');
-  } else if(keyCode === 65 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
+  } else if (keyCode === 65 && event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT) {
     rightAlt.classList.remove('keyboard__button_active');
   } else if (keyCode === 67 && event.location == KeyboardEvent.DOM_KEY_LOCATION_LEFT) { 
     controlLeft.classList.remove('keyboard__button_active');
   } else {
     document.querySelector(".keyboard__button[data='"+keyCode+"']" ).classList.remove("keyboard__button_active")
   }
-  
+  textArea.focus();
 });
 
 // добавляем класс при нажатии мышкой
@@ -127,12 +130,46 @@ document.querySelectorAll(".keyboard__button").forEach(function(element){
   element.addEventListener("click", ()=>{
     element.classList.add("keyboard__button_active");
     setTimeout(()=>element.classList.remove("keyboard__button_active"), 300);
-    textArea.value+=element.innerText;
+    
     const keyName = element.innerText;
-    if(keyName === ""){
-      textArea.value+=" "
-    }
+    let innerText = textArea.value
 
+    if (keyName === "Backspace"){
+      let cursorPosition = textArea.selectionStart;
+      console.log(cursorPosition);
+        // если курсор стоит в начале поля ввода, то ничего не делаем
+      if (cursorPosition === 0) {
+        textArea.focus();
+      } else { 
+        let newValue = innerText.substring(0,cursorPosition-1)+innerText.substring(cursorPosition)
+        textArea.value = newValue;
+      }
+
+    } else if (keyName === "Del"){
+      let cursorPosition = textArea.selectionStart;
+      console.log(cursorPosition);
+        // если курсор стоит в конце поля ввода, то ничего не делаем
+      if (cursorPosition === innerText.length) {textArea.focus();
+      } else {
+        let newValue = innerText.substring(0,cursorPosition)+innerText.substring(cursorPosition+1)
+        textArea.value = newValue;
+        textArea.selectionStart = cursorPosition;
+        textArea.selectionEnd = cursorPosition;
+      }
+      
+    } else if (keyName === "Enter") {
+      textArea.value+= "\n"
+  
+    } else if (keyName === "Tab") {
+      textArea.value+= "\t"
+  
+    } else if (keyName === ""){
+      textArea.value+=" ";
+
+    } else{
+    textArea.value+=element.innerText;
+    }
+    
     console.log(keyName);
     textArea.focus();
 
