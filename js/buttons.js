@@ -561,10 +561,10 @@
     },
     quote: {
       en: {
-        lower: '"',
+        lower: '\'',
         upper: '"',
         capsLock: '"',
-        capsShift: '"',
+        capsShift: '\'',
       },
       ru: {
         lower: "э",
