@@ -25,8 +25,9 @@ pToLanguage.innerText = "Для переключения языка комбин
 class Keyboard {
   constructor() {
     this.capsLock = false;
-    this.shif = false;
+    this.shift = false;
     this.lang = localStorage.lang ? localStorage.lang : "en";
+    this.register = "lower";
   }
 
   createKeyboard() {
@@ -37,52 +38,42 @@ class Keyboard {
     content.append(header);
     content.append(textArea);
     content.append(keyboardWrapper);
-
-    // Create keys
     for (let key in buttons) {
       const button = document.createElement("button");
       button.className = "keyboard__button";
-      button.innerText = buttons[key].en.lower;
-      button.setAttribute("data", `${button.innerText.charCodeAt()}`);
       keyboardWrapper.append(button);
-
       if (functionButtons.includes(key)) {
         button.classList.add("keyboard__button_function");
         button.classList.add(`keyboard__${key}`);
       }
     }
   }
+
+  // Create keys
+  createKeys() {
+    const buttonsArr = document.querySelectorAll(".keyboard__button");
+    let i = 0;
+    for (let key in buttons) {
+      buttonsArr[i].innerText = buttons[key][this.lang][this.register];
+      buttonsArr[i].setAttribute(
+        "data",
+        `${buttonsArr[i].innerText.charCodeAt()}`
+      );
+      i++;
+    }
+    // for (let key in buttons) {
+    //   button.innerText = buttons[key][this.lang][this.register];
+    //   button.setAttribute("data", `${button.innerText.charCodeAt()}`);
+    // }
+  }
 }
 
 const virtualKeyboard = new Keyboard();
 virtualKeyboard.createKeyboard();
-// function createKeyboard(){
-//   body.prepend(container)
-//   container.append(content)
-//   container.append(pToWindows)
-//   container.append(pToLanguage);
-//   content.append(header)
-//   content.append(textArea)
-//   content.append(keyboardWrapper)
-
-//   // Create keys
-//   for (let key in buttons) {
-//     const button = document.createElement("button");
-//     button.className = "keyboard__button";
-//     button.innerText = buttons[key].en.lower;
-//     button.setAttribute("data", `${button.innerText.charCodeAt()}`)
-//     keyboardWrapper.append(button);
-
-//     if (functionButtons.includes(key)) {
-//       button.classList.add("keyboard__button_function");
-//       button.classList.add(`keyboard__${key}`);
-//     }
-//   }
-// }
-
-// createKeyboard()
+virtualKeyboard.createKeys();
 
 const rightShift = document.querySelector(".keyboard__shiftRight");
+const leftShift = document.querySelector(".keyboard__shiftLeft");
 const rightAlt = document.querySelector(".keyboard__altRight");
 const controlRight = document.querySelector(".keyboard__controlRight");
 const controlLeft = document.querySelector(".keyboard__controlLeft");
@@ -98,6 +89,15 @@ document.addEventListener("keydown", (event) => {
     event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT
   ) {
     rightShift.classList.add("keyboard__button_active");
+    virtualKeyboard.register = "upper";
+    virtualKeyboard.createKeys();
+  } else if (
+    keyName === "Shift" &&
+    event.location == KeyboardEvent.DOM_KEY_LOCATION_LEFT
+  ) {
+    leftShift.classList.add("keyboard__button_active");
+    virtualKeyboard.register = "upper";
+    virtualKeyboard.createKeys();
   } else if (
     keyName === "Control" &&
     event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT
@@ -131,6 +131,9 @@ document.addEventListener("keydown", (event) => {
     document
       .querySelector(".keyboard__button[data='" + 9660 + "']")
       .classList.add("keyboard__button_active");
+  } else if (keyName === "Shift") {
+    virtualKeyboard.register = "upper";
+    virtualKeyboard.createKeys();
   } else {
     document
       .querySelector(".keyboard__button[data='" + keyCode + "']")
@@ -145,10 +148,19 @@ textArea.addEventListener("keyup", (event) => {
   console.log(keyName);
 
   if (
-    keyCode === 83 &&
+    keyName === "Shift" &&
     event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT
   ) {
     rightShift.classList.remove("keyboard__button_active");
+    virtualKeyboard.register = "lower";
+    virtualKeyboard.createKeys();
+  } else if (
+    keyName === "Shift" &&
+    event.location == KeyboardEvent.DOM_KEY_LOCATION_LEFT
+  ) {
+    leftShift.classList.remove("keyboard__button_active");
+    virtualKeyboard.register = "lower";
+    virtualKeyboard.createKeys();
   } else if (
     keyName === "Control" &&
     event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT
@@ -180,12 +192,14 @@ textArea.addEventListener("keyup", (event) => {
     document
       .querySelector(".keyboard__button[data='" + 9660 + "']")
       .classList.remove("keyboard__button_active");
+  } else if (keyName === "Shift") {
+    virtualKeyboard.register = "lower";
+    virtualKeyboard.createKeys();
   } else {
     document
       .querySelector(".keyboard__button[data='" + keyCode + "']")
       .classList.remove("keyboard__button_active");
   }
-  console.log(textArea);
   textArea.focus();
 });
 
@@ -200,7 +214,6 @@ document.querySelectorAll(".keyboard__button").forEach(function (element) {
 
     if (keyName === "Backspace") {
       let cursorPosition = textArea.selectionStart;
-      console.log(cursorPosition);
       // если курсор стоит в начале поля ввода, то ничего не делаем
       if (cursorPosition === 0) {
         textArea.focus();
@@ -214,7 +227,6 @@ document.querySelectorAll(".keyboard__button").forEach(function (element) {
       }
     } else if (keyName === "Del") {
       let cursorPosition = textArea.selectionStart;
-      console.log(cursorPosition);
       // если курсор стоит в конце поля ввода, то ничего не делаем
       if (cursorPosition === innerText.length) {
         textArea.focus();
