@@ -346,6 +346,8 @@ document.querySelectorAll('.keyboard__button').forEach((element) => {
         virtualKeyboard.register = 'capsShift';
       }
       virtualKeyboard.createKeys();
+    } else if(keyName === 'Ctrl' || keyName === 'Alt'){
+      textArea.focus()
     } else {
       textArea.value += element.innerText;
     }
@@ -361,7 +363,7 @@ document.querySelectorAll('.keyboard__button').forEach((element) => {
       if (!virtualKeyboard.capsLock) {
         virtualKeyboard.register = 'lower';
       } else {
-        virtualKeyboard.register = 'CapsLock';
+        virtualKeyboard.register = "capsLock";
       }
       virtualKeyboard.createKeys();
     }
