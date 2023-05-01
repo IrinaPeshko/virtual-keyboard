@@ -61,10 +61,6 @@ class Keyboard {
       );
       i++;
     }
-    // for (let key in buttons) {
-    //   button.innerText = buttons[key][this.lang][this.register];
-    //   button.setAttribute("data", `${button.innerText.charCodeAt()}`);
-    // }
   }
 }
 
@@ -131,9 +127,6 @@ document.addEventListener("keydown", (event) => {
     document
       .querySelector(".keyboard__button[data='" + 9660 + "']")
       .classList.add("keyboard__button_active");
-  } else if (keyName === "Shift") {
-    virtualKeyboard.register = "upper";
-    virtualKeyboard.createKeys();
   } else {
     document
       .querySelector(".keyboard__button[data='" + keyCode + "']")
@@ -205,9 +198,8 @@ textArea.addEventListener("keyup", (event) => {
 
 // добавляем класс при нажатии мышкой
 document.querySelectorAll(".keyboard__button").forEach(function (element) {
-  element.addEventListener("click", () => {
+  element.addEventListener("mousedown", () => {
     element.classList.add("keyboard__button_active");
-    setTimeout(() => element.classList.remove("keyboard__button_active"), 300);
 
     const keyName = element.innerText;
     let innerText = textArea.value;
@@ -286,13 +278,10 @@ document.querySelectorAll(".keyboard__button").forEach(function (element) {
         const newPosition =
           lines.slice(0, lineIndex - 1).join("\n").length +
           Math.min(columnPosition, lines[lineIndex - 1].length + 1);
-        textArea.setSelectionRange(newPosition, newPosition);
         // устанавливаем курсор на этой позиции в верхней строке
-        //   const newPosition =
-        //     lines.slice(0, lineIndex - 1).join("\n").length + columnPosition;
-        //   textArea.setSelectionRange(newPosition, newPosition);
-        // }
+        textArea.setSelectionRange(newPosition, newPosition);
       }
+      // ArrowDown
     } else if (element.getAttribute("data") == 9660) {
       const cursorPosition = textArea.selectionStart;
       const lines = textArea.value.substr(0, cursorPosition).split("\n");
@@ -309,11 +298,24 @@ document.querySelectorAll(".keyboard__button").forEach(function (element) {
           Math.min(columnPosition, linesArr[lineIndex + 1].length + 1);
         textArea.setSelectionRange(newPosition, newPosition);
       }
+    } else if (keyName === "Shift") {
+      virtualKeyboard.register = "upper";
+      virtualKeyboard.createKeys();
     } else {
       textArea.value += element.innerText;
     }
 
     console.log(keyName);
     textArea.focus();
+  });
+  element.addEventListener("mouseup", () => {
+    element.classList.remove("keyboard__button_active");
+    const keyName = element.innerText;
+    let innerText = textArea.value;
+    if (keyName === "Shift") {
+      virtualKeyboard.register = "lower";
+      virtualKeyboard.createKeys();
+      textArea.focus();
+    }
   });
 });
