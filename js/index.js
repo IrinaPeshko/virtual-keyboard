@@ -61,6 +61,12 @@ class Keyboard {
       );
       i++;
     }
+    const caps = document.querySelector(".keyboard__caps");
+    if (this.capsLock) {
+      caps.classList.add("keyboard__button_active");
+    } else {
+      caps.classList.remove("keyboard__button_active");
+    }
   }
 }
 
@@ -84,15 +90,23 @@ document.addEventListener("keydown", (event) => {
     keyName === "Shift" &&
     event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT
   ) {
+    if (!virtualKeyboard.capsLock) {
+      virtualKeyboard.register = "upper";
+    } else {
+      virtualKeyboard.register = "capsShift";
+    }
     rightShift.classList.add("keyboard__button_active");
-    virtualKeyboard.register = "upper";
     virtualKeyboard.createKeys();
   } else if (
     keyName === "Shift" &&
     event.location == KeyboardEvent.DOM_KEY_LOCATION_LEFT
   ) {
     leftShift.classList.add("keyboard__button_active");
-    virtualKeyboard.register = "upper";
+    if (!virtualKeyboard.capsLock) {
+      virtualKeyboard.register = "upper";
+    } else {
+      virtualKeyboard.register = "capsShift";
+    }
     virtualKeyboard.createKeys();
   } else if (
     keyName === "Control" &&
@@ -127,6 +141,15 @@ document.addEventListener("keydown", (event) => {
     document
       .querySelector(".keyboard__button[data='" + 9660 + "']")
       .classList.add("keyboard__button_active");
+  } else if (keyName === "CapsLock") {
+    if (!virtualKeyboard.capsLock) {
+      virtualKeyboard.capsLock = true;
+      virtualKeyboard.register = "capsLock";
+    } else {
+      virtualKeyboard.capsLock = false;
+      virtualKeyboard.register = "lower";
+    }
+    virtualKeyboard.createKeys();
   } else {
     document
       .querySelector(".keyboard__button[data='" + keyCode + "']")
@@ -145,14 +168,22 @@ textArea.addEventListener("keyup", (event) => {
     event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT
   ) {
     rightShift.classList.remove("keyboard__button_active");
-    virtualKeyboard.register = "lower";
+    if (!virtualKeyboard.capsLock) {
+      virtualKeyboard.register = "lower";
+    } else {
+      virtualKeyboard.register = "capsLock";
+    }
     virtualKeyboard.createKeys();
   } else if (
     keyName === "Shift" &&
     event.location == KeyboardEvent.DOM_KEY_LOCATION_LEFT
   ) {
     leftShift.classList.remove("keyboard__button_active");
-    virtualKeyboard.register = "lower";
+    if (!virtualKeyboard.capsLock) {
+      virtualKeyboard.register = "lower";
+    } else {
+      virtualKeyboard.register = "capsLock";
+    }
     virtualKeyboard.createKeys();
   } else if (
     keyName === "Control" &&
@@ -188,6 +219,7 @@ textArea.addEventListener("keyup", (event) => {
   } else if (keyName === "Shift") {
     virtualKeyboard.register = "lower";
     virtualKeyboard.createKeys();
+  } else if (keyName === "CapsLock") {
   } else {
     document
       .querySelector(".keyboard__button[data='" + keyCode + "']")
@@ -238,7 +270,18 @@ document.querySelectorAll(".keyboard__button").forEach(function (element) {
     } else if (keyName === "Win") {
       textArea.focus();
       // arrowRight
+    } else if (keyName === "CapsLock") {
+      if (!virtualKeyboard.capsLock) {
+        virtualKeyboard.capsLock = true;
+        virtualKeyboard.register = "capsLock";
+      } else {
+        virtualKeyboard.capsLock = false;
+        virtualKeyboard.register = "lower";
+      }
+      virtualKeyboard.createKeys();
     } else if (element.getAttribute("data") == 9658) {
+      console.log(textArea.selectionStart);
+
       let cursorPosition = textArea.selectionStart;
       if (cursorPosition === innerText.length) {
         textArea.focus();
@@ -248,6 +291,8 @@ document.querySelectorAll(".keyboard__button").forEach(function (element) {
       }
       // arrowLeft
     } else if (element.getAttribute("data") == 9668) {
+      console.log(textArea.selectionStart);
+
       let cursorPosition = textArea.selectionStart;
       if (cursorPosition === 0) {
         textArea.focus();
@@ -257,6 +302,7 @@ document.querySelectorAll(".keyboard__button").forEach(function (element) {
       }
       // arrowUp
     } else if (element.getAttribute("data") == 9650) {
+      console.log(textArea.selectionStart);
       const cursorPosition = textArea.selectionStart;
       // делим массив на подстроки по Enter
       const lines = textArea.value.substr(0, cursorPosition).split("\n");
@@ -274,10 +320,15 @@ document.querySelectorAll(".keyboard__button").forEach(function (element) {
 
       if (lineIndex > 0) {
         //  проверяем что больше длина строки на которую мы устанавливаем курсор или позиция курсора и берем минимальное
-
-        const newPosition =
+        let newPosition =
           lines.slice(0, lineIndex - 1).join("\n").length +
           Math.min(columnPosition, lines[lineIndex - 1].length + 1);
+        if (lineIndex === 1) {
+          newPosition =
+            lines.slice(0, lineIndex - 1).join("\n").length +
+            Math.min(columnPosition, lines[lineIndex - 1].length);
+        }
+
         // устанавливаем курсор на этой позиции в верхней строке
         textArea.setSelectionRange(newPosition, newPosition);
       }
@@ -299,7 +350,11 @@ document.querySelectorAll(".keyboard__button").forEach(function (element) {
         textArea.setSelectionRange(newPosition, newPosition);
       }
     } else if (keyName === "Shift") {
-      virtualKeyboard.register = "upper";
+      if (!virtualKeyboard.capsLock) {
+        virtualKeyboard.register = "upper";
+      } else {
+        virtualKeyboard.register = "capsShift";
+      }
       virtualKeyboard.createKeys();
     } else {
       textArea.value += element.innerText;
@@ -309,13 +364,19 @@ document.querySelectorAll(".keyboard__button").forEach(function (element) {
     textArea.focus();
   });
   element.addEventListener("mouseup", () => {
-    element.classList.remove("keyboard__button_active");
-    const keyName = element.innerText;
     let innerText = textArea.value;
-    if (keyName === "Shift") {
-      virtualKeyboard.register = "lower";
-      virtualKeyboard.createKeys();
-      textArea.focus();
+    const keyName = element.innerText;
+    if (keyName !== "CapsLock") {
+      element.classList.remove("keyboard__button_active");
     }
+    if (keyName === "Shift") {
+      if (!virtualKeyboard.capsLock) {
+        virtualKeyboard.register = "lower";
+      } else {
+        virtualKeyboard.register = "CapsLock";
+      }
+      virtualKeyboard.createKeys();
+    }
+    textArea.focus();
   });
 });
