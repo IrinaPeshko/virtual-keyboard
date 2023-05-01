@@ -77,12 +77,15 @@ virtualKeyboard.createKeys();
 const rightShift = document.querySelector(".keyboard__shiftRight");
 const leftShift = document.querySelector(".keyboard__shiftLeft");
 const rightAlt = document.querySelector(".keyboard__altRight");
+const leftAlt = document.querySelector(".keyboard__altLeft");
 const controlRight = document.querySelector(".keyboard__controlRight");
 const controlLeft = document.querySelector(".keyboard__controlLeft");
 
 // добавляеем событие при нажатии на клавиатуру
 // KeyDown
 document.addEventListener("keydown", (event) => {
+  const lines = textArea.value.split("\n");
+  const currentLine = lines[lines.length - 1];
   const keyCode = event.key.charCodeAt();
   const keyName = event.key;
   console.log(keyCode);
@@ -106,6 +109,34 @@ document.addEventListener("keydown", (event) => {
       virtualKeyboard.register = "upper";
     } else {
       virtualKeyboard.register = "capsShift";
+    }
+    virtualKeyboard.createKeys();
+  } else if (
+    keyName === "Alt" &&
+    event.location == KeyboardEvent.DOM_KEY_LOCATION_RIGHT &&
+    event.ctrlKey
+  ) {
+    rightAlt.classList.add("keyboard__button_active");
+    if (virtualKeyboard.lang === "en") {
+      virtualKeyboard.lang = "ru";
+      localStorage.lang = "ru";
+    } else {
+      virtualKeyboard.lang = "en";
+      localStorage.lang = "en";
+    }
+    virtualKeyboard.createKeys();
+  } else if (
+    keyName === "Alt" &&
+    event.location == KeyboardEvent.DOM_KEY_LOCATION_LEFT &&
+    event.ctrlKey
+  ) {
+    leftAlt.classList.add("keyboard__button_active");
+    if (virtualKeyboard.lang === "en") {
+      virtualKeyboard.lang = "ru";
+      localStorage.lang = "ru";
+    } else {
+      virtualKeyboard.lang = "en";
+      localStorage.lang = "en";
     }
     virtualKeyboard.createKeys();
   } else if (
@@ -150,6 +181,12 @@ document.addEventListener("keydown", (event) => {
       virtualKeyboard.register = "lower";
     }
     virtualKeyboard.createKeys();
+  } else if (keyName === "Alt") {
+    document
+      .querySelector(".keyboard__button[data='" + keyCode + "']")
+      .classList.add("keyboard__button_active");
+    textArea.focus();
+  } else if (keyName === "Control") {
   } else {
     document
       .querySelector(".keyboard__button[data='" + keyCode + "']")
@@ -160,7 +197,6 @@ document.addEventListener("keydown", (event) => {
 textArea.addEventListener("keyup", (event) => {
   const keyCode = event.key.charCodeAt();
   const keyName = event.key;
-  // let cursorPosition = textArea.selectionStart;
   console.log(keyName);
 
   if (
