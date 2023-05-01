@@ -84,6 +84,7 @@ const controlLeft = document.querySelector('.keyboard__controlLeft');
 // добавляеем событие при нажатии на клавиатуру
 // KeyDown
 document.addEventListener('keydown', (event) => {
+  const cursorPosition = textArea.selectionStart;
   textArea.focus();
   const keyCode = event.key.charCodeAt();
   const keyName = event.key;
@@ -139,6 +140,20 @@ document.addEventListener('keydown', (event) => {
     }
     virtualKeyboard.createKeys();
   } else if (
+    keyName === 'Alt'
+    && event.location === KeyboardEvent.DOM_KEY_LOCATION_LEFT
+    && event.ctrlKey
+  ) {
+    leftAlt.classList.add('keyboard__button_active');
+    if (virtualKeyboard.lang === 'en') {
+      virtualKeyboard.lang = 'ru';
+      localStorage.lang = 'ru';
+    } else {
+      virtualKeyboard.lang = 'en';
+      localStorage.lang = 'en';
+    }
+    virtualKeyboard.createKeys();
+  } else if (
     keyName === 'Control'
     && event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT
   ) {
@@ -163,22 +178,26 @@ document.addEventListener('keydown', (event) => {
     document.querySelector('.keyboard__win')
       .classList.add('keyboard__button_active');
   } else if (keyName === 'ArrowRight') {
-    // textArea.value += "►";
+     event.preventDefault();
+    textArea.value += "►";
      document
       .querySelector(`.keyboard__button[data='${9658}']`)
       .classList.add("keyboard__button_active");
   } else if (keyName === 'ArrowLeft') {
-    // textArea.value += "◄";
+     event.preventDefault();
+    textArea.value += "◄";
     document
       .querySelector(`.keyboard__button[data='${9668}']`)
       .classList.add('keyboard__button_active');
   } else if (keyName === 'ArrowUp') {
-    // textArea.value += "▲";
+     event.preventDefault();
+    textArea.value += "▲";
     document
       .querySelector(`.keyboard__button[data='${9650}']`)
       .classList.add('keyboard__button_active');
   } else if (keyName === 'ArrowDown') {
-    // textArea.value += "▼";
+     event.preventDefault();
+    textArea.value += "▼";
     document
       .querySelector(`.keyboard__button[data='${9660}']`)
       .classList.add('keyboard__button_active');
@@ -191,12 +210,6 @@ document.addEventListener('keydown', (event) => {
       virtualKeyboard.register = 'lower';
     }
     virtualKeyboard.createKeys();
-  } else if (keyName === 'Alt') {
-    document
-      .querySelector(`.keyboard__button[data='${keyCode}']`)
-      .classList.add('keyboard__button_active');
-    textArea.focus();
-  } else if (keyName === 'Control') {
   } else {
     document
       .querySelector(`.keyboard__button[data='${keyCode}']`)
@@ -333,73 +346,16 @@ document.querySelectorAll('.keyboard__button').forEach((element) => {
 
       // arrowRight
     } else if (element.getAttribute('data') === 9658) {
-      // textArea.value += "►";
-      console.log(textArea.selectionStart);
-
-      let cursorPosition = textArea.selectionStart;
-      if (cursorPosition === innerText.length) {
-        textArea.focus();
-      } else {
-        cursorPosition += 1;
-        textArea.setSelectionRange(cursorPosition, cursorPosition);
-      }
+      textArea.value += "►";
       // arrowLeft
     } else if (element.getAttribute('data') === 9668) {
-      console.log(textArea.selectionStart);
-
-      let cursorPosition = textArea.selectionStart;
-      if (cursorPosition === 0) {
-        textArea.focus();
-      } else {
-        cursorPosition -= 1;
-        textArea.setSelectionRange(cursorPosition, cursorPosition);
-      }
+      textArea.value += "►";
       // arrowUp
     } else if (element.getAttribute('data') === 9650) {
-      console.log(textArea.selectionStart);
-      const cursorPosition = textArea.selectionStart;
-      // делим массив на подстроки по Enter
-      const lines = textArea.value.substr(0, cursorPosition).split('\n');
-      // узнаем индекс текущей строки
-      const lineIndex = lines.length - 1;
-      let columnPosition;
-      if (lineIndex === 1) {
-        columnPosition = cursorPosition - lines[0].length - 1;
-      } else {
-        // узнаем количество символов в строках до нашей строки
-        const sumLines = lines.slice(0, lineIndex).join('\n').length;
-        // от общего количества символов перед курсором вычитаем сумму символов предыдущих линий, получаес на какой позиции в строке установлен курсор
-        columnPosition = cursorPosition - sumLines;
-      }
-
-      if (lineIndex > 0) {
-        //  проверяем что больше длина строки на которую мы устанавливаем курсор или позиция курсора и берем минимальное
-        let newPosition = lines.slice(0, lineIndex - 1).join('\n').length
-          + Math.min(columnPosition, lines[lineIndex - 1].length + 1);
-        if (lineIndex === 1) {
-          newPosition = lines.slice(0, lineIndex - 1).join('\n').length
-            + Math.min(columnPosition, lines[lineIndex - 1].length);
-        }
-
-        // устанавливаем курсор на этой позиции в верхней строке
-        textArea.setSelectionRange(newPosition, newPosition);
-      }
+      textArea.value += "►";
       // ArrowDown
     } else if (element.getAttribute('data') === 9660) {
-      const cursorPosition = textArea.selectionStart;
-      const lines = textArea.value.substr(0, cursorPosition).split('\n');
-      const lineIndex = lines.length - 1;
-      const sumLines = lines.slice(0, lineIndex).join('\n').length;
-      let columnPosition = cursorPosition - sumLines;
-      if (lineIndex === 0) {
-        columnPosition += 1;
-      }
-      const linesArr = textArea.value.split('\n');
-      if (linesArr[lineIndex + 1]) {
-        const newPosition = linesArr.slice(0, lineIndex + 1).join('\n').length
-          + Math.min(columnPosition, linesArr[lineIndex + 1].length + 1);
-        textArea.setSelectionRange(newPosition, newPosition);
-      }
+      textArea.value += "►";
     } else if (keyName === 'Shift') {
       if (!virtualKeyboard.capsLock) {
         virtualKeyboard.register = 'upper';
