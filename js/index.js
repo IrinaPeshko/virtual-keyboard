@@ -84,11 +84,9 @@ const controlLeft = document.querySelector('.keyboard__controlLeft');
 // добавляеем событие при нажатии на клавиатуру
 // KeyDown
 document.addEventListener('keydown', (event) => {
-  const cursorPosition = textArea.selectionStart;
   textArea.focus();
   const keyCode = event.key.charCodeAt();
   const keyName = event.key;
-  console.log(keyCode);
   if (
     keyName === 'Shift'
     && event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT
@@ -140,20 +138,6 @@ document.addEventListener('keydown', (event) => {
     }
     virtualKeyboard.createKeys();
   } else if (
-    keyName === 'Alt'
-    && event.location === KeyboardEvent.DOM_KEY_LOCATION_LEFT
-    && event.ctrlKey
-  ) {
-    leftAlt.classList.add('keyboard__button_active');
-    if (virtualKeyboard.lang === 'en') {
-      virtualKeyboard.lang = 'ru';
-      localStorage.lang = 'ru';
-    } else {
-      virtualKeyboard.lang = 'en';
-      localStorage.lang = 'en';
-    }
-    virtualKeyboard.createKeys();
-  } else if (
     keyName === 'Control'
     && event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT
   ) {
@@ -178,26 +162,26 @@ document.addEventListener('keydown', (event) => {
     document.querySelector('.keyboard__win')
       .classList.add('keyboard__button_active');
   } else if (keyName === 'ArrowRight') {
-     event.preventDefault();
-    textArea.value += "►";
-     document
+    event.preventDefault();
+    textArea.value += '►';
+    document
       .querySelector(`.keyboard__button[data='${9658}']`)
-      .classList.add("keyboard__button_active");
+      .classList.add('keyboard__button_active');
   } else if (keyName === 'ArrowLeft') {
-     event.preventDefault();
-    textArea.value += "◄";
+    event.preventDefault();
+    textArea.value += '◄';
     document
       .querySelector(`.keyboard__button[data='${9668}']`)
       .classList.add('keyboard__button_active');
   } else if (keyName === 'ArrowUp') {
-     event.preventDefault();
-    textArea.value += "▲";
+    event.preventDefault();
+    textArea.value += '▲';
     document
       .querySelector(`.keyboard__button[data='${9650}']`)
       .classList.add('keyboard__button_active');
   } else if (keyName === 'ArrowDown') {
-     event.preventDefault();
-    textArea.value += "▼";
+    event.preventDefault();
+    textArea.value += '▼';
     document
       .querySelector(`.keyboard__button[data='${9660}']`)
       .classList.add('keyboard__button_active');
@@ -221,8 +205,6 @@ document.addEventListener('keydown', (event) => {
 textArea.addEventListener('keyup', (event) => {
   const keyCode = event.key.charCodeAt();
   const keyName = event.key;
-  console.log(keyName);
-
   if (
     keyName === 'Shift'
     && event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT
@@ -287,6 +269,7 @@ textArea.addEventListener('keyup', (event) => {
     virtualKeyboard.register = 'lower';
     virtualKeyboard.createKeys();
   } else if (keyName === 'CapsLock') {
+    textArea.focus();
   } else {
     document
       .querySelector(`.keyboard__button[data='${keyCode}']`)
@@ -337,25 +320,25 @@ document.querySelectorAll('.keyboard__button').forEach((element) => {
     } else if (keyName === 'CapsLock') {
       if (!virtualKeyboard.capsLock) {
         virtualKeyboard.capsLock = true;
-        virtualKeyboard.register = "capsLock";
+        virtualKeyboard.register = 'capsLock';
       } else {
         virtualKeyboard.capsLock = false;
-        virtualKeyboard.register = "lower";
+        virtualKeyboard.register = 'lower';
       }
       virtualKeyboard.createKeys();
 
       // arrowRight
     } else if (element.getAttribute('data') === 9658) {
-      textArea.value += "►";
+      textArea.value += '►';
       // arrowLeft
     } else if (element.getAttribute('data') === 9668) {
-      textArea.value += "►";
+      textArea.value += '►';
       // arrowUp
     } else if (element.getAttribute('data') === 9650) {
-      textArea.value += "►";
+      textArea.value += '►';
       // ArrowDown
     } else if (element.getAttribute('data') === 9660) {
-      textArea.value += "►";
+      textArea.value += '►';
     } else if (keyName === 'Shift') {
       if (!virtualKeyboard.capsLock) {
         virtualKeyboard.register = 'upper';
@@ -367,11 +350,9 @@ document.querySelectorAll('.keyboard__button').forEach((element) => {
       textArea.value += element.innerText;
     }
 
-    console.log(keyName);
     textArea.focus();
   });
   element.addEventListener('mouseup', () => {
-    const innerText = textArea.value;
     const keyName = element.innerText;
     if (keyName !== 'CapsLock') {
       element.classList.remove('keyboard__button_active');
