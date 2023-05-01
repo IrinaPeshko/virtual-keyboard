@@ -1,5 +1,5 @@
 const buttons = {
-  tilde: {
+  Backquote: {
     en: {
       lower: '`',
       upper: '~',
@@ -13,7 +13,7 @@ const buttons = {
       capsShift: 'ё',
     },
   },
-  one: {
+  Digit1: {
     en: {
       lower: '1',
       upper: '!',
@@ -27,7 +27,7 @@ const buttons = {
       capsShift: '!',
     },
   },
-  two: {
+  Digit2: {
     en: {
       lower: '2',
       upper: '@',
@@ -41,7 +41,7 @@ const buttons = {
       capsShift: '"',
     },
   },
-  three: {
+  Digit3: {
     en: {
       lower: '3',
       upper: '#',
@@ -55,7 +55,7 @@ const buttons = {
       capsShift: '№',
     },
   },
-  four: {
+  Digit4: {
     en: {
       lower: '4',
       upper: '$',
@@ -69,7 +69,7 @@ const buttons = {
       capsShift: ';',
     },
   },
-  five: {
+  Digit5: {
     en: {
       lower: '5',
       upper: '%',
@@ -83,7 +83,7 @@ const buttons = {
       capsShift: '%',
     },
   },
-  six: {
+  Digit6: {
     en: {
       lower: '6',
       upper: '^',
@@ -97,7 +97,7 @@ const buttons = {
       capsShift: ':',
     },
   },
-  seven: {
+  Digit7: {
     en: {
       lower: '7',
       upper: '&',
@@ -111,7 +111,7 @@ const buttons = {
       capsShift: '?',
     },
   },
-  eight: {
+  Digit8: {
     en: {
       lower: '8',
       upper: '*',
@@ -125,7 +125,7 @@ const buttons = {
       capsShift: '*',
     },
   },
-  nine: {
+  Digit9: {
     en: {
       lower: '9',
       upper: '(',
@@ -139,7 +139,7 @@ const buttons = {
       capsShift: '(',
     },
   },
-  zero: {
+  Digit0: {
     en: {
       lower: '0',
       upper: ')',
@@ -153,7 +153,7 @@ const buttons = {
       capsShift: ')',
     },
   },
-  minus: {
+  Minus: {
     en: {
       lower: '-',
       upper: '_',
@@ -167,7 +167,7 @@ const buttons = {
       capsShift: '_',
     },
   },
-  equals: {
+  Equal: {
     en: {
       lower: '=',
       upper: '+',
@@ -181,7 +181,7 @@ const buttons = {
       capsShift: '+',
     },
   },
-  backspace: {
+  Backspace: {
     en: {
       lower: 'Backspace',
       upper: 'Backspace',
@@ -195,7 +195,7 @@ const buttons = {
       capsShift: 'Backspace',
     },
   },
-  tab: {
+  Tab: {
     en: {
       lower: 'Tab',
       upper: 'Tab',
@@ -209,7 +209,7 @@ const buttons = {
       capsShift: 'Tab',
     },
   },
-  buttonQ: {
+  KeyQ: {
     en: {
       lower: 'q',
       upper: 'Q',
@@ -223,7 +223,7 @@ const buttons = {
       capsShift: 'й',
     },
   },
-  buttonW: {
+  KeyW: {
     en: {
       lower: 'w',
       upper: 'W',
@@ -237,7 +237,7 @@ const buttons = {
       capsShift: 'ц',
     },
   },
-  buttonE: {
+  KeyE: {
     en: {
       lower: 'e',
       upper: 'E',
@@ -251,7 +251,7 @@ const buttons = {
       capsShift: 'у',
     },
   },
-  buttonR: {
+  KeyR: {
     en: {
       lower: 'r',
       upper: 'R',
@@ -265,7 +265,7 @@ const buttons = {
       capsShift: 'к',
     },
   },
-  buttonT: {
+  KeyT: {
     en: {
       lower: 't',
       upper: 'T',
@@ -279,7 +279,7 @@ const buttons = {
       capsShift: 'е',
     },
   },
-  buttonY: {
+  KeyY: {
     en: {
       lower: 'y',
       upper: 'Y',
@@ -293,7 +293,7 @@ const buttons = {
       capsShift: 'н',
     },
   },
-  buttonU: {
+  KeyU: {
     en: {
       lower: 'u',
       upper: 'U',
@@ -307,7 +307,7 @@ const buttons = {
       capsShift: 'г',
     },
   },
-  buttonI: {
+  KeyI: {
     en: {
       lower: 'i',
       upper: 'I',
@@ -321,7 +321,7 @@ const buttons = {
       capsShift: 'ш',
     },
   },
-  buttonO: {
+  KeyO: {
     en: {
       lower: 'o',
       upper: 'O',
@@ -335,7 +335,7 @@ const buttons = {
       capsShift: 'щ',
     },
   },
-  buttonP: {
+  KeyP: {
     en: {
       lower: 'p',
       upper: 'P',
@@ -349,7 +349,7 @@ const buttons = {
       capsShift: 'з',
     },
   },
-  bracketLeft: {
+  BracketLeft: {
     en: {
       lower: '[',
       upper: '{',
@@ -363,7 +363,7 @@ const buttons = {
       capsShift: 'х',
     },
   },
-  bracketRight: {
+  BracketRight: {
     en: {
       lower: ']',
       upper: '}',
@@ -377,7 +377,7 @@ const buttons = {
       capsShift: 'ъ',
     },
   },
-  backslash: {
+  Backslash: {
     en: {
       lower: '\\',
       upper: '|',
@@ -391,7 +391,7 @@ const buttons = {
       capsShift: '|',
     },
   },
-  del: {
+  Delete: {
     en: {
       lower: 'Del',
       upper: 'Del',
@@ -405,7 +405,7 @@ const buttons = {
       capsShift: 'Del',
     },
   },
-  caps: {
+  CapsLock: {
     en: {
       lower: 'CapsLock',
       upper: 'CapsLock',
@@ -419,7 +419,7 @@ const buttons = {
       capsShift: 'CapsLock',
     },
   },
-  buttonA: {
+  KeyA: {
     en: {
       lower: 'a',
       upper: 'A',
@@ -433,7 +433,7 @@ const buttons = {
       capsShift: 'ф',
     },
   },
-  buttonS: {
+  KeyS: {
     en: {
       lower: 's',
       upper: 'S',
@@ -447,7 +447,7 @@ const buttons = {
       capsShift: 'ы',
     },
   },
-  buttonD: {
+  KeyD: {
     en: {
       lower: 'd',
       upper: 'D',
@@ -461,7 +461,7 @@ const buttons = {
       capsShift: 'в',
     },
   },
-  buttonF: {
+  KeyF: {
     en: {
       lower: 'f',
       upper: 'F',
@@ -475,7 +475,7 @@ const buttons = {
       capsShift: 'а',
     },
   },
-  buttonG: {
+  KeyG: {
     en: {
       lower: 'g',
       upper: 'G',
@@ -489,7 +489,7 @@ const buttons = {
       capsShift: 'п',
     },
   },
-  buttonH: {
+  KeyH: {
     en: {
       lower: 'h',
       upper: 'H',
@@ -503,7 +503,7 @@ const buttons = {
       capsShift: 'р',
     },
   },
-  buttonJ: {
+  KeyJ: {
     en: {
       lower: 'j',
       upper: 'J',
@@ -517,7 +517,7 @@ const buttons = {
       capsShift: 'о',
     },
   },
-  buttonK: {
+  KeyK: {
     en: {
       lower: 'k',
       upper: 'K',
@@ -531,7 +531,7 @@ const buttons = {
       capsShift: 'л',
     },
   },
-  buttonL: {
+  KeyL: {
     en: {
       lower: 'l',
       upper: 'L',
@@ -545,7 +545,7 @@ const buttons = {
       capsShift: 'д',
     },
   },
-  semicolon: {
+  Semicolon: {
     en: {
       lower: ';',
       upper: ':',
@@ -559,11 +559,11 @@ const buttons = {
       capsShift: 'ж',
     },
   },
-  quote: {
+  Quote: {
     en: {
-      lower: "'",
+      lower: '\'',
       upper: '"',
-      capsLock: "'",
+      capsLock: '\'',
       capsShift: '"',
     },
     ru: {
@@ -573,7 +573,7 @@ const buttons = {
       capsShift: 'э',
     },
   },
-  enter: {
+  Enter: {
     en: {
       lower: 'Enter',
       upper: 'Enter',
@@ -587,7 +587,7 @@ const buttons = {
       capsShift: 'Enter',
     },
   },
-  shiftLeft: {
+  ShiftLeft: {
     en: {
       lower: 'Shift',
       upper: 'Shift',
@@ -601,7 +601,7 @@ const buttons = {
       capsShift: 'Shift',
     },
   },
-  buttonZ: {
+  KeyZ: {
     en: {
       lower: 'z',
       upper: 'Z',
@@ -615,7 +615,7 @@ const buttons = {
       capsShift: 'Я',
     },
   },
-  buttonX: {
+  KeyX: {
     en: {
       lower: 'x',
       upper: 'X',
@@ -629,7 +629,7 @@ const buttons = {
       capsShift: 'ч',
     },
   },
-  buttonC: {
+  KeyC: {
     en: {
       lower: 'c',
       upper: 'C',
@@ -643,7 +643,7 @@ const buttons = {
       capsShift: 'с',
     },
   },
-  buttonV: {
+  KeyV: {
     en: {
       lower: 'v',
       upper: 'V',
@@ -657,7 +657,7 @@ const buttons = {
       capsShift: 'м',
     },
   },
-  buttonB: {
+  KeyB: {
     en: {
       lower: 'b',
       upper: 'B',
@@ -671,7 +671,7 @@ const buttons = {
       capsShift: 'и',
     },
   },
-  buttonN: {
+  KeyN: {
     en: {
       lower: 'n',
       upper: 'N',
@@ -685,7 +685,7 @@ const buttons = {
       capsShift: 'т',
     },
   },
-  buttonM: {
+  KeyM: {
     en: {
       lower: 'm',
       upper: 'M',
@@ -699,7 +699,7 @@ const buttons = {
       capsShift: 'о',
     },
   },
-  comma: {
+  Comma: {
     en: {
       lower: ',',
       upper: '<',
@@ -713,7 +713,7 @@ const buttons = {
       capsShift: 'б',
     },
   },
-  dot: {
+  Period: {
     en: {
       lower: '.',
       upper: '>',
@@ -727,7 +727,7 @@ const buttons = {
       capsShift: 'ю',
     },
   },
-  slash: {
+  Slash: {
     en: {
       lower: '/',
       upper: '?',
@@ -741,7 +741,7 @@ const buttons = {
       capsShift: ',',
     },
   },
-  arrowUp: {
+  ArrowUp: {
     en: {
       lower: '▲',
       upper: '▲',
@@ -755,7 +755,7 @@ const buttons = {
       capsShift: '▲',
     },
   },
-  shiftRight: {
+  ShiftRight: {
     en: {
       lower: 'Shift',
       upper: 'Shift',
@@ -769,7 +769,7 @@ const buttons = {
       capsShift: 'Shift',
     },
   },
-  controlLeft: {
+  ControlLeft: {
     en: {
       lower: 'Ctrl',
       upper: 'Ctrl',
@@ -783,7 +783,7 @@ const buttons = {
       capsShift: 'Ctrl',
     },
   },
-  win: {
+  MetaLeft: {
     en: {
       lower: 'Win',
       upper: 'Win',
@@ -797,7 +797,7 @@ const buttons = {
       capsShift: 'Win',
     },
   },
-  altLeft: {
+  AltLeft: {
     en: {
       lower: 'Alt',
       upper: 'Alt',
@@ -811,7 +811,7 @@ const buttons = {
       capsShift: 'Alt',
     },
   },
-  space: {
+  Space: {
     en: {
       lower: ' ',
       upper: ' ',
@@ -825,7 +825,7 @@ const buttons = {
       capsShift: ' ',
     },
   },
-  altRight: {
+  AltRight: {
     en: {
       lower: 'Alt',
       upper: 'Alt',
@@ -839,7 +839,7 @@ const buttons = {
       capsShift: 'Alt',
     },
   },
-  arrowLeft: {
+  ArrowLeft: {
     en: {
       lower: '◄',
       upper: '◄',
@@ -853,7 +853,7 @@ const buttons = {
       capsShift: '◄',
     },
   },
-  arrowDown: {
+  ArrowDown: {
     en: {
       lower: '▼',
       upper: '▼',
@@ -867,7 +867,7 @@ const buttons = {
       capsShift: '▼',
     },
   },
-  arrowRight: {
+  ArrowRight: {
     en: {
       lower: '►',
       upper: '►',
@@ -881,7 +881,7 @@ const buttons = {
       capsShift: '►',
     },
   },
-  controlRight: {
+  ControlRight: {
     en: {
       lower: 'Ctrl',
       upper: 'Ctrl',
@@ -898,18 +898,18 @@ const buttons = {
 };
 
 const functionButtons = [
-  'backspace',
-  'tab',
-  'del',
-  'caps',
-  'enter',
-  'shiftLeft',
-  'shiftRight',
-  'controlLeft',
-  'win',
-  'altLeft',
-  'space',
-  'altRight',
-  'controlRight',
+  'Backspace',
+  'Tab',
+  'Delete',
+  'CapsLock',
+  'Enter',
+  'ShiftLeft',
+  'ShiftRight',
+  'ControlLeft',
+  'MetaLeft',
+  'AltLeft',
+  'Space',
+  'AltRight',
+  'ControlRight',
 ];
 export { buttons, functionButtons };

@@ -49,14 +49,7 @@
   grid-template-columns: repeat(15, 1fr);
   grid-gap: 1vw;
 }
-/* .keyboard__row {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-  gap: 5px;
-  margin: 5px auto;
-} */
+
 .keyboard__button {
   display: block;
   height: 100%;
@@ -82,47 +75,36 @@
   transition: color 0.3s, background-color 0.5s;
 }
 
-/* .keyboard__button_function:active {
-  background-color: rgba(164,237,255,1);
-  color:#002c4e;
-  transition: color 0.3s, background-color 0.5s;
-} */
-
-.keyboard__backspace {
+.Backspace {
   grid-column-start: 14;
   grid-column-end: 16;
 }
 
-.keyboard__caps {
+.CapsLock {
   grid-row-start: 3;
   grid-column-start: 1;
   grid-column-end: 3;
 }
 
-.keyboard__caps_on {
-  border: 3px solid #006200;
-  background-color: #4f9864;
-}
-
-.keyboard__enter {
+.Enter {
   grid-row-start: 3;
   grid-column-start: 14;
   grid-column-end: 16
 }
 
-.keyboard__shiftLeft {
+.ShiftLeft {
   grid-row-start: 4;
   grid-column-start: 1;
   grid-column-end: 3;
 }
 
-.keyboard__shiftRight {
+.ShiftRight {
   grid-row-start: 4;
   grid-column-start: 14;
   grid-column-end: 16;
 }
 
-.keyboard__space {
+.Space {
   grid-row-start: 5;
   grid-column-start: 4;
   grid-column-end: 11;

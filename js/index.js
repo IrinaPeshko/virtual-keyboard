@@ -39,10 +39,10 @@ class Keyboard {
       for (let i = 0; i < keysArr.length; i += 1) {
         const button = document.createElement('button');
         button.className = 'keyboard__button';
+        button.classList.add(`${keysArr[i]}`);
         keyboardWrapper.append(button);
         if (functionButtons.includes(keysArr[i])) {
           button.classList.add('keyboard__button_function');
-          button.classList.add(`keyboard__${keysArr[i]}`);
         }
       }
     };
@@ -60,7 +60,7 @@ class Keyboard {
         );
         j += 1;
       }
-      const caps = document.querySelector('.keyboard__caps');
+      const caps = document.querySelector('.CapsLock');
       if (this.capsLock) {
         caps.classList.add('keyboard__button_active');
       } else {
@@ -74,22 +74,20 @@ const virtualKeyboard = new Keyboard();
 virtualKeyboard.createKeyboard();
 virtualKeyboard.createKeys();
 
-const rightShift = document.querySelector('.keyboard__shiftRight');
-const leftShift = document.querySelector('.keyboard__shiftLeft');
-const rightAlt = document.querySelector('.keyboard__altRight');
-const leftAlt = document.querySelector('.keyboard__altLeft');
-const controlRight = document.querySelector('.keyboard__controlRight');
-const controlLeft = document.querySelector('.keyboard__controlLeft');
+const rightShift = document.querySelector('.ShiftRight');
+const leftShift = document.querySelector('.ShiftLeft');
+const rightAlt = document.querySelector('.AltRight');
+const leftAlt = document.querySelector('.AltLeft');
+const controlRight = document.querySelector('.ControlRight');
+const controlLeft = document.querySelector('.ControlLeft');
 
 // добавляеем событие при нажатии на клавиатуру
 // KeyDown
 document.addEventListener('keydown', (event) => {
   textArea.focus();
-  const keyCode = event.key.charCodeAt();
-  const keyName = event.key;
+  const { code } = event;
   if (
-    keyName === 'Shift'
-    && event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT
+    code === 'ShiftRight'
   ) {
     if (!virtualKeyboard.capsLock) {
       virtualKeyboard.register = 'upper';
@@ -99,8 +97,7 @@ document.addEventListener('keydown', (event) => {
     rightShift.classList.add('keyboard__button_active');
     virtualKeyboard.createKeys();
   } else if (
-    keyName === 'Shift'
-    && event.location === KeyboardEvent.DOM_KEY_LOCATION_LEFT
+    code === 'ShiftLeft'
   ) {
     leftShift.classList.add('keyboard__button_active');
     if (!virtualKeyboard.capsLock) {
@@ -109,11 +106,7 @@ document.addEventListener('keydown', (event) => {
       virtualKeyboard.register = 'capsShift';
     }
     virtualKeyboard.createKeys();
-  } else if (
-    keyName === 'Alt'
-    && event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT
-    && event.ctrlKey
-  ) {
+  } else if (code === 'AltRight' && event.ctrlKey) {
     rightAlt.classList.add('keyboard__button_active');
     if (virtualKeyboard.lang === 'en') {
       virtualKeyboard.lang = 'ru';
@@ -124,9 +117,7 @@ document.addEventListener('keydown', (event) => {
     }
     virtualKeyboard.createKeys();
   } else if (
-    keyName === 'Alt'
-    && event.location === KeyboardEvent.DOM_KEY_LOCATION_LEFT
-    && event.ctrlKey
+    code === 'AltLeft' && event.ctrlKey
   ) {
     leftAlt.classList.add('keyboard__button_active');
     if (virtualKeyboard.lang === 'en') {
@@ -138,54 +129,47 @@ document.addEventListener('keydown', (event) => {
     }
     virtualKeyboard.createKeys();
   } else if (
-    keyName === 'Control'
-    && event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT
+    code === 'ControlRight'
   ) {
     controlRight.classList.add('keyboard__button_active');
-  } else if (
-    keyName === 'Alt'
-    && event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT
-  ) {
+  } else if (code === 'AltRight') {
     rightAlt.classList.add('keyboard__button_active');
-  } else if (
-    keyName === 'Control'
-    && event.location === KeyboardEvent.DOM_KEY_LOCATION_LEFT
-  ) {
+  } else if (code === 'AltLeft') {
+    leftAlt.classList.add('keyboard__button_active');
+  } else if (code === 'ControlLeft') {
     controlLeft.classList.add('keyboard__button_active');
-  } else if (keyName === 'Tab') {
+  } else if (code === 'Tab') {
     textArea.value += '\t';
-  } else if (keyCode === 32) {
+  } else if (code === 'Space') {
     textArea.value += ' ';
-    document.querySelector('.keyboard__space')
+    document.querySelector('.Space').classList.add('keyboard__button_active');
+  } else if (code === 'MetaLeft') {
+    document
+      .querySelector('.MetaLeft')
       .classList.add('keyboard__button_active');
-  } else if (keyName === 'Meta') {
-    document.querySelector('.keyboard__win')
-      .classList.add('keyboard__button_active');
-  } else if (keyName === 'ArrowRight') {
+  } else if (code === 'ArrowRight') {
     event.preventDefault();
     textArea.value += '►';
     document
-      .querySelector(`.keyboard__button[data='${9658}']`)
+      .querySelector('.ArrowRight')
       .classList.add('keyboard__button_active');
-  } else if (keyName === 'ArrowLeft') {
+  } else if (code === 'ArrowLeft') {
     event.preventDefault();
     textArea.value += '◄';
     document
-      .querySelector(`.keyboard__button[data='${9668}']`)
+      .querySelector('.ArrowLeft')
       .classList.add('keyboard__button_active');
-  } else if (keyName === 'ArrowUp') {
+  } else if (code === 'ArrowUp') {
     event.preventDefault();
     textArea.value += '▲';
-    document
-      .querySelector(`.keyboard__button[data='${9650}']`)
-      .classList.add('keyboard__button_active');
-  } else if (keyName === 'ArrowDown') {
+    document.querySelector('.ArrowUp').classList.add('keyboard__button_active');
+  } else if (code === 'ArrowDown') {
     event.preventDefault();
     textArea.value += '▼';
     document
-      .querySelector(`.keyboard__button[data='${9660}']`)
+      .querySelector('.ArrowDown')
       .classList.add('keyboard__button_active');
-  } else if (keyName === 'CapsLock') {
+  } else if (code === 'CapsLock') {
     if (!virtualKeyboard.capsLock) {
       virtualKeyboard.capsLock = true;
       virtualKeyboard.register = 'capsLock';
@@ -194,20 +178,25 @@ document.addEventListener('keydown', (event) => {
       virtualKeyboard.register = 'lower';
     }
     virtualKeyboard.createKeys();
+  } else if (code === 'Enter') {
+    document.querySelector(`.${code}`).classList.add('keyboard__button_active');
+  } else if (code === 'Backspace') {
+    document.querySelector(`.${code}`).classList.add('keyboard__button_active');
+  } else if (code === 'Delete') {
+    document.querySelector(`.${code}`).classList.add('keyboard__button_active');
   } else {
-    document
-      .querySelector(`.keyboard__button[data='${keyCode}']`)
-      .classList.add('keyboard__button_active');
+    event.preventDefault();
+    textArea.value += document.querySelector(`.${code}`).innerText;
+    document.querySelector(`.${code}`).classList.add('keyboard__button_active');
   }
 });
 
 // KeyUp
 textArea.addEventListener('keyup', (event) => {
-  const keyCode = event.key.charCodeAt();
   const keyName = event.key;
+  const { code } = event;
   if (
-    keyName === 'Shift'
-    && event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT
+    code === 'ShiftRight'
   ) {
     rightShift.classList.remove('keyboard__button_active');
     if (!virtualKeyboard.capsLock) {
@@ -217,8 +206,7 @@ textArea.addEventListener('keyup', (event) => {
     }
     virtualKeyboard.createKeys();
   } else if (
-    keyName === 'Shift'
-    && event.location === KeyboardEvent.DOM_KEY_LOCATION_LEFT
+    code === 'ShiftLeft'
   ) {
     leftShift.classList.remove('keyboard__button_active');
     if (!virtualKeyboard.capsLock) {
@@ -228,42 +216,40 @@ textArea.addEventListener('keyup', (event) => {
     }
     virtualKeyboard.createKeys();
   } else if (
-    keyName === 'Control'
-    && event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT
+    code === 'ControlRight'
   ) {
     controlRight.classList.remove('keyboard__button_active');
   } else if (
-    keyName === 'Alt'
-    && event.location === KeyboardEvent.DOM_KEY_LOCATION_RIGHT
+    code === 'AltRight'
   ) {
     rightAlt.classList.remove('keyboard__button_active');
   } else if (
-    keyName === 'Control'
-    && event.location === KeyboardEvent.DOM_KEY_LOCATION_LEFT
+    code === 'ControlLeft'
   ) {
     controlLeft.classList.remove('keyboard__button_active');
-  } else if (keyCode === 32) {
+  } else if (code === 'Space') {
     document
-      .querySelector('.keyboard__space')
+      .querySelector('.Space')
       .classList.remove('keyboard__button_active');
-  } else if (keyName === 'Meta') {
-    document.querySelector('.keyboard__win')
-      .classList.remove('keyboard__button_active');
-  } else if (keyName === 'ArrowRight') {
+  } else if (code === 'MetaLeft') {
     document
-      .querySelector(`.keyboard__button[data='${9658}']`)
+      .querySelector('.MetaLeft')
       .classList.remove('keyboard__button_active');
-  } else if (keyName === 'ArrowLeft') {
+  } else if (code === 'ArrowRight') {
     document
-      .querySelector(`.keyboard__button[data='${9668}']`)
+      .querySelector('ArrowRight')
       .classList.remove('keyboard__button_active');
-  } else if (keyName === 'ArrowUp') {
+  } else if (code === 'ArrowLeft') {
     document
-      .querySelector(`.keyboard__button[data='${9650}']`)
+      .querySelector('.ArrowLeft')
       .classList.remove('keyboard__button_active');
-  } else if (keyName === 'ArrowDown') {
+  } else if (code === 'ArrowUp') {
     document
-      .querySelector(`.keyboard__button[data='${9660}']`)
+      .querySelector('.ArrowUp')
+      .classList.remove('keyboard__button_active');
+  } else if (code === 'ArrowDown') {
+    document
+      .querySelector('.ArrowDown')
       .classList.remove('keyboard__button_active');
   } else if (keyName === 'Shift') {
     virtualKeyboard.register = 'lower';
@@ -272,7 +258,7 @@ textArea.addEventListener('keyup', (event) => {
     textArea.focus();
   } else {
     document
-      .querySelector(`.keyboard__button[data='${keyCode}']`)
+      .querySelector(`.${code}`)
       .classList.remove('keyboard__button_active');
   }
   textArea.focus();
@@ -346,8 +332,8 @@ document.querySelectorAll('.keyboard__button').forEach((element) => {
         virtualKeyboard.register = 'capsShift';
       }
       virtualKeyboard.createKeys();
-    } else if(keyName === 'Ctrl' || keyName === 'Alt'){
-      textArea.focus()
+    } else if (keyName === 'Ctrl' || keyName === 'Alt') {
+      textArea.focus();
     } else {
       textArea.value += element.innerText;
     }
@@ -363,7 +349,7 @@ document.querySelectorAll('.keyboard__button').forEach((element) => {
       if (!virtualKeyboard.capsLock) {
         virtualKeyboard.register = 'lower';
       } else {
-        virtualKeyboard.register = "capsLock";
+        virtualKeyboard.register = 'capsLock';
       }
       virtualKeyboard.createKeys();
     }
