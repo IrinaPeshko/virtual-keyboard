@@ -184,10 +184,12 @@ document.addEventListener('keydown', (event) => {
     document.querySelector(`.${code}`).classList.add('keyboard__button_active');
   } else if (code === 'Delete') {
     document.querySelector(`.${code}`).classList.add('keyboard__button_active');
+  } else if (document.querySelector(`.${code}`)===null) {
+    return
   } else {
     event.preventDefault();
     textArea.value += document.querySelector(`.${code}`).innerText;
-    document.querySelector(`.${code}`).classList.add('keyboard__button_active');
+    document.querySelector(`.${code}`).classList.add("keyboard__button_active");
   }
 });
 
@@ -256,6 +258,8 @@ textArea.addEventListener('keyup', (event) => {
     virtualKeyboard.createKeys();
   } else if (keyName === 'CapsLock') {
     textArea.focus();
+  } else if (document.querySelector(`.${code}`)===null) {
+    return
   } else {
     document
       .querySelector(`.${code}`)
