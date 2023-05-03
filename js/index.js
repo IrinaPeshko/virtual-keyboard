@@ -237,7 +237,7 @@ textArea.addEventListener('keyup', (event) => {
       .classList.remove('keyboard__button_active');
   } else if (code === 'ArrowRight') {
     document
-      .querySelector('ArrowRight')
+      .querySelector('.ArrowRight')
       .classList.remove('keyboard__button_active');
   } else if (code === 'ArrowLeft') {
     document
